@@ -1,11 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { compressToEncodedURIComponent } from 'lz-string';
 import {
     Button,
     ButtonGroup,
-    Card,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -13,12 +11,10 @@ import {
 } from '@heroui/react';
 import { useBuilderStore } from '~/zustand/builderProvider';
 import { characters, compressCharacterData } from '~/zustand/builderStore';
-import Image from 'next/image';
 import { useState } from 'react';
 import Skill from './skill';
 
-export default () => {
-    const router = useRouter();
+const Test = () => {
     const builder = useBuilderStore(store => store);
     const [currentTree, setTree] = useState<number>(0);
     return (
@@ -99,3 +95,5 @@ export default () => {
         </div>
     );
 };
+
+export default Test;

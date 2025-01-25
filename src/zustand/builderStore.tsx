@@ -94,9 +94,10 @@ export const initBuilderStore = (state?: BuilderState): BuilderState => {
     };
 };
 
-export const positionData: {
-    [key: string]: { rowStart: number; colStart: number };
-} = {
+export const positionData: Record<
+    string,
+    { rowStart: number; colStart: number }
+> = {
     'Elemental Wisdom': {
         rowStart: 1,
         colStart: 2,
@@ -841,7 +842,7 @@ export function compressCharacterData(data: CharData): CharacterDataArray {
         data.usedStatPoints,
         data.totalSkillPoints,
         data.usedSkillPoints,
-        //@ts-ignore
+        //@ts-expect-error "Test"
         data.skillTree.map(tree => [
             tree.name,
             tree.skills.map(skill => [
@@ -888,7 +889,7 @@ export function decompressCharacterData(data: CharacterDataArray): CharData {
         usedStatPoints: data[5],
         totalSkillPoints: data[6],
         usedSkillPoints: data[7],
-        //@ts-ignore
+        //@ts-expect-error "Test"
         skillTree: data[8].map(tree => ({
             name: tree[0],
             skills: tree[1]?.map(skill => ({

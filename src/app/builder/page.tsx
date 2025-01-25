@@ -9,10 +9,11 @@ import {
 export default async function Page({
     searchParams,
 }: {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+    searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
     const buildCode = Array.isArray((await searchParams).code)
-        ? (((await searchParams).code?.[0] as string) ?? '')
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+          ((await searchParams).code?.[0]! ?? '')
         : (((await searchParams).code as string) ?? '');
     const buildData = JSON.parse(
         decompressFromEncodedURIComponent(buildCode)

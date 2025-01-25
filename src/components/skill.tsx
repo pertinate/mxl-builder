@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useMemo } from 'react';
 import { cn } from '~/lib/utils';
 import { useBuilderStore } from '~/zustand/builderProvider';
-import { positionData, Skill } from '~/zustand/builderStore';
+import { positionData, type Skill } from '~/zustand/builderStore';
 
 type Props = {
     // rowStart: number;
@@ -14,18 +14,19 @@ type Props = {
     skillIdx: number;
 };
 
-export default (props: Props) => {
+const Skill = (props: Props) => {
     const builder = useBuilderStore(store => store);
-    const skill = useMemo(
-        () => builder.charData.skillTree[props.treeIdx]?.skills[props.skillIdx],
+    const skill = useMemo<Skill>(
+        () =>
+            builder.charData.skillTree[props.treeIdx]!.skills[props.skillIdx]!,
         [props.treeIdx, props.skillIdx, builder]
     );
     return (
         <div
             className={cn(
                 'relative w-fit row-span-1 col-span-1  flex justify-center flex-col gap-1 ',
-                `row-start-${positionData[skill?.name as keyof typeof positionData]?.rowStart}`,
-                `col-start-${positionData[skill?.name as keyof typeof positionData]?.colStart}`
+                `row-start-${positionData[skill.name]?.rowStart}`,
+                `col-start-${positionData[skill.name]?.colStart}`
             )}
         >
             <div className='relative w-fit'>
@@ -73,3 +74,5 @@ export default (props: Props) => {
         </div>
     );
 };
+
+export default Skill;
